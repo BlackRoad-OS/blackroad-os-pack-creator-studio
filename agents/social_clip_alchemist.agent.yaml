@@ -21,7 +21,7 @@ suitability_profile:
     - "content_repurposing"
     - "launch_moments"
   anti_patterns:
-    - "overpromising outcomes"
+    - "over-promising outcomes"
     - "ignoring attribution"
 owner: "@Alexa"
 home_repo: blackroad-os-pack-creator-studio
