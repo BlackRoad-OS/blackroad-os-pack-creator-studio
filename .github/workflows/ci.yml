@@ -23,5 +23,5 @@ jobs:
         run: jq empty $(find . -name "*.json")
       - name: Validate YAML
         run: |
-          npm install -g yamllint
+          pnpm add -g yamllint
           yamllint prompts
