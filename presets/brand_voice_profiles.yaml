@@ -8,5 +8,5 @@ profiles:
     emoji_usage: "minimal"
   - id: hype-crew
     adjectives: ["energetic", "optimistic", "direct"]
-    avoid: ["overpromising", "unverified claims"]
+    avoid: ["over-promising", "unverified claims"]
     emoji_usage: "medium"
