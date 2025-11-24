@@ -1,3 +1,8 @@
-{ "job": "ffmpeg-transcode", "engine": "ffmpeg", "input": "{{input}}", "output": "{{output}}",
-"filters": [{{#each filters}}"{{this}}"{{#unless @last}}, {{/unless}}{{/each}}], "bitrate": "{{bitrate}}"
+{
+  "job": "ffmpeg-transcode",
+  "engine": "ffmpeg",
+  "input": "{{input}}",
+  "output": "{{output}}",
+  "filters": [{{#each filters}}"{{this}}"{{#unless @last}}, {{/unless}}{{/each}}],
+  "bitrate": "{{bitrate}}"
 }
