@@ -20,7 +20,7 @@ remote APIs.
 - `/prompts` — YAML presets with front-matter metadata for creative tasks.
 - `/agents` — TypeScript and Python helpers for prompt generation, media remixing, and Canva
   rendering (stubs).
-- `/workflows` — Handlebars JSON templates for Canva and FFMPEG jobs.
+- `/workflows` — Handlebars JSON templates for Canva and FFmpeg jobs.
 - `/lib` — Shared Handlebars renderer and zod schemas.
 - `/src` — CLI entry for `br-create` commands.
 - `/scripts` — Build-time helpers such as beacon injection.
