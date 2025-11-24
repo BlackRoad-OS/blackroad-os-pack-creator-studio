@@ -30,6 +30,7 @@ remote APIs.
 - `pnpm br-create list` — enumerate prompts and workflows.
 - `pnpm br-create run <prompt>` — send a prompt preset to the configured agent.
 - `pnpm br-create render <workflow>` — fill a workflow JSON template.
+- `pnpm br-create render-canva <workflow>` — fill a Canva workflow JSON template.
 - `pnpm lint` — run ESLint + Prettier checks.
 
 ## Roadmap
