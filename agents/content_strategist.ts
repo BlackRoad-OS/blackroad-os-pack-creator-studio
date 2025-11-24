@@ -77,14 +77,22 @@ export function generateContentCalendar(
   const days = cadence.preferredDays ?? ["Mon", "Wed", "Fri"];
   const calendar: CalendarEntry[] = [];
 
+  // Track how many entries are scheduled for each day to stagger times
+  const dayEntryCount: Record<string, number> = {};
+
   for (let i = 0; i < slots; i += 1) {
+    const day = days[i % days.length];
     const pillar = pillars[i % pillars.length];
     const channel = pillar.primaryChannels?.[0] ?? "blog";
+    // Determine the hour for this entry (start at 10:00, increment by 1 for each additional entry on the same day)
+    const entryCount = dayEntryCount[day] ?? 0;
+    const hour = 10 + entryCount;
+    dayEntryCount[day] = entryCount + 1;
     calendar.push({
       pillarId: pillar.id,
       title: `${pillar.label}: ${pillar.description.slice(0, 40)}...`,
       channel,
-      scheduledFor: `${days[i % days.length]} 10:00`,
+      scheduledFor: `${day} ${hour.toString().padStart(2, "0")}:00`,
       format: channel === "youtube" ? "video" : "article",
     });
   }
