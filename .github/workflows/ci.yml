@@ -1,0 +1,27 @@
+name: ci
+
+on:
+  push:
+    branches: [work]
+  pull_request:
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 8
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile=false
+      - run: pnpm lint
+      - name: Validate JSON
+        run: jq empty $(find . -name "*.json")
+      - name: Validate YAML
+        run: |
+          npm install -g yamllint
+          yamllint prompts
