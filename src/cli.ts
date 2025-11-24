@@ -123,6 +123,10 @@ const main = async () => {
 };
 
 main().catch((error) => {
-  console.error('Unexpected error:', (error as Error).message);
+  console.error('An unexpected error occurred while running the command.');
+  console.error('Error details:', (error as Error).message);
+  if ((error as Error).stack) {
+    console.error('\nStack trace:', (error as Error).stack);
+  }
   process.exit(1);
 });
