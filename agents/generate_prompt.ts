@@ -18,10 +18,7 @@ export const renderPrompt = (preset: PromptPreset, agentName: string): string =>
   return `${header}\n\n${preset.description}\n\nSteps:\n${steps}${notes}`;
 };
 
-export const dispatchPrompt = async (
-  preset: PromptPreset,
-  agentName: string,
-): Promise<string> => {
+export const dispatchPrompt = async (preset: PromptPreset, agentName: string): Promise<string> => {
   const promptText = renderPrompt(preset, agentName);
   // Placeholder for SDK call to OpenAI or internal agent.
   // TODO(creator-pack-next): Stream completions to file for downstream workflows.

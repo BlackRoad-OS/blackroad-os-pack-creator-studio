@@ -8,44 +8,68 @@ const args = process.argv.slice(2);
 const command = args[0];
 
 const list = (): void => {
-  const prompts = fs.readdirSync(path.join(process.cwd(), 'prompts')).filter((file) =>
-    file.endsWith('.yml'),
-  );
-  const workflows = fs.readdirSync(path.join(process.cwd(), 'workflows')).filter((file) =>
-    file.endsWith('.json.hbs'),
-  );
-  console.log('Prompts:');
-  prompts.forEach((prompt) => console.log(`- ${prompt.replace('.yml', '')}`));
-  console.log('\nWorkflows:');
-  workflows.forEach((flow) => console.log(`- ${flow.replace('.json.hbs', '')}`));
+  try {
+    const prompts = fs
+      .readdirSync(path.join(process.cwd(), 'prompts'))
+      .filter((file) => file.endsWith('.yml'));
+    const workflows = fs
+      .readdirSync(path.join(process.cwd(), 'workflows'))
+      .filter((file) => file.endsWith('.json.hbs'));
+    console.log('Prompts:');
+    prompts.forEach((prompt) => console.log(`- ${prompt.replace('.yml', '')}`));
+    console.log('\nWorkflows:');
+    workflows.forEach((flow) => console.log(`- ${flow.replace('.json.hbs', '')}`));
+  } catch (error) {
+    console.error('Error listing resources:', (error as Error).message);
+    console.error('Make sure the prompts/ and workflows/ directories exist.');
+    process.exit(1);
+  }
 };
 
 const runPrompt = async (slug: string, agentName: string): Promise<void> => {
-  const preset = loadPromptPreset(slug);
-  const response = await dispatchPrompt(preset, agentName);
-  console.log(response);
+  try {
+    const preset = loadPromptPreset(slug);
+    const response = await dispatchPrompt(preset, agentName);
+    console.log(response);
+  } catch (error) {
+    console.error(`Error running prompt '${slug}':`, (error as Error).message);
+    console.error(`Make sure the file prompts/${slug}.yml exists and is valid.`);
+    process.exit(1);
+  }
 };
 
 const renderWorkflow = async (templateName: string): Promise<void> => {
-  const filePath = path.join(process.cwd(), 'workflows', `${templateName}.json.hbs`);
-  const source = fs.readFileSync(filePath, 'utf-8');
-  const payload = renderTemplate(source, {
-    input: 'input.mp4',
-    output: 'output.mp4',
-    filters: ['scale=1280:-1', 'format=yuv420p'],
-    bitrate: '6M',
-  });
-  console.log(payload);
+  try {
+    const filePath = path.join(process.cwd(), 'workflows', `${templateName}.json.hbs`);
+    const source = fs.readFileSync(filePath, 'utf-8');
+    const payload = renderTemplate(source, {
+      input: 'input.mp4',
+      output: 'output.mp4',
+      filters: ['scale=1280:-1', 'format=yuv420p'],
+      bitrate: '6M',
+    });
+    console.log(payload);
+  } catch (error) {
+    console.error(`Error rendering workflow '${templateName}':`, (error as Error).message);
+    console.error(`Make sure the file workflows/${templateName}.json.hbs exists.`);
+    process.exit(1);
+  }
 };
 
 const renderCanva = async (templateName: string): Promise<void> => {
-  const payload = renderCanvaBatch(templateName, {
-    brand: 'Blackroad',
-    assets: ['cover.png', 'thumbnail.png'],
-    agent: process.env.CREATOR_AGENT || 'lucidia',
-  });
-  const response = await sendToCanva(payload);
-  console.log(response);
+  try {
+    const payload = renderCanvaBatch(templateName, {
+      brand: 'Blackroad',
+      assets: ['cover.png', 'thumbnail.png'],
+      agent: process.env.CREATOR_AGENT || 'lucidia',
+    });
+    const response = await sendToCanva(payload);
+    console.log(response);
+  } catch (error) {
+    console.error(`Error rendering Canva template '${templateName}':`, (error as Error).message);
+    console.error(`Make sure the file workflows/${templateName}.json.hbs exists.`);
+    process.exit(1);
+  }
 };
 
 const usage = () => {
@@ -64,6 +88,11 @@ const main = async () => {
       break;
     case 'run': {
       const slug = args[1];
+      if (!slug) {
+        console.error('Error: Missing prompt name.');
+        console.error('Usage: br-create run <prompt> [--agent name]');
+        process.exit(1);
+      }
       const agentFlagIndex = args.indexOf('--agent');
       const agentName =
         agentFlagIndex >= 0 && args[agentFlagIndex + 1]
@@ -73,9 +102,19 @@ const main = async () => {
       break;
     }
     case 'render':
+      if (!args[1]) {
+        console.error('Error: Missing workflow name.');
+        console.error('Usage: br-create render <workflow>');
+        process.exit(1);
+      }
       await renderWorkflow(args[1]);
       break;
     case 'render-canva':
+      if (!args[1]) {
+        console.error('Error: Missing workflow name.');
+        console.error('Usage: br-create render-canva <workflow>');
+        process.exit(1);
+      }
       await renderCanva(args[1]);
       break;
     default:
@@ -83,4 +122,7 @@ const main = async () => {
   }
 };
 
-main();
+main().catch((error) => {
+  console.error('Unexpected error:', (error as Error).message);
+  process.exit(1);
+});
