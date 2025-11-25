@@ -1,0 +1,29 @@
+{
+  "name": "blackroad-os-pack-creator-studio",
+  "version": "1.0.0",
+  "description": "BlackRoad OS Pack Creator Studio - A service for creating and managing OS packs",
+  "main": "src/index.js",
+  "scripts": {
+    "start:studio": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
+  },
+  "keywords": [
+    "blackroad",
+    "os",
+    "pack",
+    "creator",
+    "studio"
+  ],
+  "author": "BlackRoad OS Team",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
