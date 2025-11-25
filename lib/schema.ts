@@ -17,7 +17,7 @@ export const workflowTemplateSchema = z.object({
   id: z.string(),
   description: z.string(),
   engine: z.enum(['canva', 'ffmpeg']),
-  template: z.record(z.any()),
+  template: z.unknown(),
 });
 
 export type PromptPreset = z.infer<typeof promptPresetSchema>;

@@ -17,11 +17,11 @@ jobs:
         with:
           node-version: 20
           cache: pnpm
-      - run: pnpm install --frozen-lockfile=false
+      - run: pnpm install --frozen-lockfile=true
       - run: pnpm lint
       - name: Validate JSON
         run: jq empty $(find . -name "*.json")
       - name: Validate YAML
         run: |
-          npm install -g yamllint
+          pnpm add -g yamllint
           yamllint prompts
