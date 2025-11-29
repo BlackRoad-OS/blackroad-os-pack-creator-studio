@@ -1,0 +1,16 @@
+{
+  "name": "blackroad-os-pack-creator-studio",
+  "version": "0.1.0",
+  "type": "commonjs",
+  "scripts": {
+    "test": "npm run test:ts",
+    "test:ts": "mocha -r ts-node/register tests/**/*.test.ts"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^22.7.4",
+    "mocha": "^10.7.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
+  }
+}
