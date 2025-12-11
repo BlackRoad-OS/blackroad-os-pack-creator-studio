@@ -26,7 +26,7 @@
   "author": "BlackRoad OS Team",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.18.2",
+    "express": "^4.22.1",
     "handlebars": "^4.7.8",
     "js-yaml": "^4.1.0",
     "zod": "^3.23.8"
