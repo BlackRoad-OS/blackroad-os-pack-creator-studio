@@ -2,12 +2,17 @@
 builder = "NIXPACKS"
 
 [deploy]
-startCommand = "npm run start:studio"
+startCommand = "npm start"
 healthcheckPath = "/health"
-restartPolicy = "on-failure"
-maxRetries = 5
+healthcheckTimeout = 300
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10
 
-[variables]
-SERVICE_NAME = "blackroad-os-pack-creator-studio"
+[[services]]
+name = "blackroad-os-pack-creator-studio"
+
+[services.env]
 PORT = "8080"
-ENVIRONMENT = "production"
+NODE_ENV = "production"
+REPO_NAME = "blackroad-os-pack-creator-studio"
+ORG_NAME = "BlackRoad-OS"

@@ -1,35 +1,12 @@
-FROM node:20-alpine AS builder
+FROM node:20-alpine
 
 WORKDIR /app
 
-# Install pnpm
-RUN corepack enable
-
-# Copy package files
-COPY package.json pnpm-lock.yaml* ./
-
-# Install dependencies
-RUN pnpm install --frozen-lockfile || npm install
+COPY package*.json ./
+RUN npm ci --only=production
 
 COPY . .
 
-# Build static assets
-RUN pnpm build || npm run build
+EXPOSE 8080
 
-FROM node:20-alpine AS runner
-
-WORKDIR /app
-
-RUN npm install -g serve
-
-COPY --from=builder /app/.out ./.out
-COPY --from=builder /app/out ./out
-COPY --from=builder /app/build ./build
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/public ./public
-
-ENV PORT=3000
-
-EXPOSE 3000
-
-CMD ["sh", "-c", "serve -s .out -p ${PORT:-3000} || serve -s out -p ${PORT:-3000} || serve -s build -p ${PORT:-3000}"]
+CMD ["npm", "start"]
