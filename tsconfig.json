@@ -1,17 +1,5 @@
 {
   "compilerOptions": {
-    "target": "ES2019",
-    "module": "CommonJS",
-    "moduleResolution": "Node",
-    "strict": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true,
-    "resolveJsonModule": true,
-    "outDir": "dist"
-  },
-  "include": ["agents/**/*.ts", "tests/**/*.ts"],
-  "exclude": ["node_modules"]
     "target": "ES2022",
     "module": "ESNext",
     "moduleResolution": "Node",
