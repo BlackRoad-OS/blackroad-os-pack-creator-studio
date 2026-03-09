@@ -1,45 +1,20 @@
 {
   "name": "blackroad-os-pack-creator-studio",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "BlackRoad OS Pack Creator Studio - A service for creating and managing OS packs",
+  "private": true,
+  "main": "src/index.js",
   "type": "commonjs",
   "scripts": {
-    "test": "npm run test:ts",
-    "test:ts": "mocha -r ts-node/register tests/**/*.test.ts"
-  },
-  "devDependencies": {
-    "@types/mocha": "^10.0.6",
-    "@types/node": "^22.7.4",
-    "mocha": "^10.7.3",
-  "private": true,
-  "type": "module",
-  "scripts": {
+    "start": "node src/index.js",
+    "start:studio": "node src/index.js",
+    "dev": "nodemon src/index.js",
     "br-create": "ts-node src/cli.ts",
     "lint": "eslint ./src ./agents ./lib ./scripts --ext .ts && prettier -c .",
     "format": "prettier -w .",
     "postbuild": "ts-node scripts/postbuild.ts",
-    "test": "pnpm lint"
-  },
-  "dependencies": {
-    "handlebars": "^4.7.8",
-    "js-yaml": "^4.1.0",
-    "zod": "^3.23.8"
-  },
-  "devDependencies": {
-    "@types/node": "^22.7.4",
-    "@typescript-eslint/eslint-plugin": "^8.8.1",
-    "@typescript-eslint/parser": "^8.8.1",
-    "eslint": "^9.0.0",
-    "eslint-config-prettier": "^9.1.0",
-    "prettier": "^3.3.3",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.6.3"
-  "version": "1.0.0",
-  "description": "BlackRoad OS Pack Creator Studio - A service for creating and managing OS packs",
-  "main": "src/index.js",
-  "scripts": {
-    "start:studio": "node src/index.js",
-    "dev": "nodemon src/index.js",
-    "start": "node src/index.js"
+    "test": "npm run test:ts",
+    "test:ts": "mocha -r ts-node/register tests/**/*.test.ts"
   },
   "keywords": [
     "blackroad",
@@ -51,10 +26,23 @@
   "author": "BlackRoad OS Team",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.22.1",
+    "handlebars": "^4.7.8",
+    "js-yaml": "^4.1.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
-    "nodemon": "^3.0.2"
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^22.7.4",
+    "@typescript-eslint/eslint-plugin": "^8.8.1",
+    "@typescript-eslint/parser": "^8.8.1",
+    "eslint": "^9.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "mocha": "^10.7.3",
+    "nodemon": "^3.0.2",
+    "prettier": "^3.3.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
   },
   "engines": {
     "node": ">=18.0.0"
