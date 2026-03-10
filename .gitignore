@@ -7,6 +7,6 @@ build/
 .env
 .env.local
 npm-debug.log
-.env
-.env.local
-.DS_Store
+__pycache__/
+*.pyc
+.pytest_cache/
